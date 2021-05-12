@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
+var cors = require('cors')
+
 
 var data = fs.readFileSync('data.json');
 var details = JSON.parse(data);
@@ -8,6 +10,8 @@ var userData = fs.readFileSync('user.json');
 var user = JSON.parse(userData);
 
 app.use(express.static('public'));
+app.use(cors())
+
 
 app.listen(8080, serving);
 
@@ -34,11 +38,12 @@ app.get('/add/:username/:password', (req, res) => {
 			console.log("Error!!!");
 		}
 	})
-	res.send({
-		status : "success",
-		user : user,
-		password : password
-	})
+	res.send("/public/index.html");
+	// res.send({
+	// 	status : "success",
+	// 	user : user,
+	// 	password : password
+	// })
 })
 
 
