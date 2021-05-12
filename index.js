@@ -54,6 +54,15 @@ app.get('/search/:name', (req, res) => {
 	}
 })
 
+app.get('/delete/:name', (req, res) => {
+	var name = req.params.name;
+	delete details[name];
+	var reply = {
+		status : "deleted",
+		name : name,
+	}
+	res.send(reply);
+})
 
 
 function serving(){
