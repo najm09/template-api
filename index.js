@@ -4,14 +4,19 @@ const fs = require('fs');
 
 var data = fs.readFileSync('data.json');
 var details = JSON.parse(data);
-console.log(details)
+var userData = fs.readFileSync('user.json');
+var user = JSON.parse(userData);
 
 app.use(express.static('public'));
 
 app.listen(8080, serving);
 
 app.get('/all', (req,res) => {
-	res.send(details);
+	var files = {
+		data : details,
+		users : user
+	}	
+	res.send(files);
 });
 
 
@@ -19,8 +24,12 @@ app.get('/add/:username/:password', (req, res) => {
 	var user = req.params.username;
 	var password = req.params.password;
 	details[user] = password;
-	var users = JSON.stringify(details, null, 2);
-	fs.writeFile('data.json', users, (err)=> {
+	var files = {
+		data : details,
+		users : user
+	}
+	var fileData = JSON.stringify(files, null, 2);
+	fs.writeFile('data.json', fileData, (err)=> {
 		if(err){
 			console.log("Error!!!");
 		}
