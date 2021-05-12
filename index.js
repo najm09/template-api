@@ -6,6 +6,7 @@ var data = fs.readFileSync('data.json');
 var details = JSON.parse(data);
 console.log(details)
 
+app.use(express.static('public'));
 
 app.listen(8080, serving);
 
@@ -14,7 +15,7 @@ app.get('/all', (req,res) => {
 });
 
 
-app.get('/:username/:password', (req, res) => {
+app.get('/add/:username/:password', (req, res) => {
 	var user = req.params.username;
 	var password = req.params.password;
 	details[user] = password;
@@ -29,6 +30,28 @@ app.get('/:username/:password', (req, res) => {
 		user : user,
 		password : password
 	})
+})
+
+
+app.get('/search/:name', (req, res) => {
+	var name = req.params.name;
+	var reply ;
+	if(details[name]){
+		reply = {
+			status : "success",
+			name : name,
+			email : details[name]
+		}
+		res.send(reply);
+	}
+	else{
+		reply = {
+			status : "Failed",
+			name : name,
+			message : "Not found !"
+		}
+		res.send(reply);
+	}
 })
 
 
