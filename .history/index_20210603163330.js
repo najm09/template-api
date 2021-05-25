@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
-const cors = require('cors')
+var cors = require('cors')
 
 
 var data = fs.readFileSync('data.json');
@@ -12,8 +12,12 @@ app.use(cors())
 
 
 app.listen(8080, serving);
+
 app.get('/all', (req,res) => {
-	res.send(details);
+	var files = {
+		data : details,
+	}	
+	res.send(files);
 });
 
 
@@ -21,7 +25,10 @@ app.get('/add/:username/:password', (req, res) => {
 	var user = req.params.username;
 	var password = req.params.password;
 	details[user] = password;
-	var fileData = JSON.stringify(details, null, 2);
+	var files = {
+		data : details,
+	}
+	var fileData = JSON.stringify(files, null, 2);
 	fs.writeFile('data.json', fileData, (err)=> {
 		if(err){
 			console.log("Error!!!");
