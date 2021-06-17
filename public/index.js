@@ -77,6 +77,8 @@ const fetchUserData = () => {
     .then(res => {
       let resArray = []
       for (var id in res) resArray.push(res[id])
+      if(resArray.length == 0) 
+      return document.getElementById("Details").innerHTML = `<p class = "error">No user Found !</p>`;
       const details = resArray.map((data) => {
         return `<div class = "details-grid">
               <p>username: ${data.username}</p>
@@ -98,6 +100,11 @@ const fetchAdminData = () => {
     .then(res => {
       let resArray = []
       for (var id in res) resArray.push(res[id])
+      if(resArray.length == 0) 
+      return document.getElementById("Details").innerHTML = 
+      `<p class = "error">
+      No Admin Found !
+      </p>`;
       const details = resArray.map((data) => {
         return `<div class = "details-grid">
         <p>username: ${data.Admin}</p>
