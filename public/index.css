@@ -14,9 +14,10 @@
   width: 16rem;
   height: 16rem;
   margin: 1em;
+  padding: 1em;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-wrap: wrap;
   align-content: space-around;
